@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button - ripple effect</title>
+    <style>
+        #ripple{
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            background: linear-gradient(90deg, purple, blue);
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        #container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            height: 100vh;
+        }
+        span{
+            position: absolute;
+            background: #fff;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: ripple 1s linear 1 ;
+            background-color: #fff;
+            transform: translate(-50%,-50%);
+        }
+        @keyframes ripple {
+            0%{
+                width: 0px;
+                height: 0px;
+                opacity: 0.5;
+            }
+            100%{
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+    <button id="ripple">Save Data</button>
+    </div>
+    <script>
+    let rippleButton= document.getElementById('ripple')
+    rippleButton.addEventListener('click',function(e){
+        console.log(e)
+        let x=e.clientX-e.target.offsetLeft
+        let y=e.clientY-e.target.offsetTop
+        console.log(x,y)
+        // y=e.offsetX
+    let ripples=document.createElement('span')
+    ripples.style.left= x + 'px'
+    ripples.style.top= y + 'px'
+    this.appendChild(ripples)
+    setTimeout(()=>{
+        ripples.remove()
+    },1000)
+    })
+    </script>
+</body>
+</html>
